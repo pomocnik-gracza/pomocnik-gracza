@@ -226,3 +226,16 @@ footer {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+/* Układ kafli – lista artykułów */
+.tiles {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+@media (min-width: 700px) {
+    .tiles {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
