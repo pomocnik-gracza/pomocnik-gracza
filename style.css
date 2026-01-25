@@ -45,32 +45,7 @@ h2 {
     color: #6cf;
 }
 
-/* Lista artykułów */
-.articles ul {
-    list-style: none;
-}
-
-.articles li {
-    padding: 10px;
-    border-bottom: 1px solid #333;
-}
-
-/* Stopka */
-footer {
-    text-align: center;
-    padding: 20px;
-    background: #1b1f3a;
-    color: #888;
-    font-size: 0.9rem;
-}
-
-/* Responsywność */
-@media (max-width: 600px) {
-    header h1 {
-        font-size: 1.5rem;
-    }
-}
-/* Kafelki artykułów */
+/* Kafelki */
 .tiles {
     margin-top: 40px;
 }
@@ -83,6 +58,7 @@ footer {
     text-decoration: none;
     color: #eaeaea;
     transition: transform 0.2s ease, background 0.2s ease;
+    margin-bottom: 20px;
 }
 
 .tile:hover {
@@ -99,143 +75,35 @@ footer {
     color: #ccc;
     font-size: 0.95rem;
 }
-/* ========== KAFELKI (ulepszone, spójne CTA) ========== */
-.tile__more {
-    display: inline-block;
-    margin-top: 12px;
-    color: #9ad9ff;
-    font-weight: 700;
-    font-size: 0.95rem;
+
+/* === KAFEL LEKTORA === */
+.lector-tile {
+    cursor: pointer;
+    background: linear-gradient(135deg, #242861, #1b1f3a);
+    border: 1px solid #3a3f7a;
 }
 
-/* ========== STRONA ARTYKUŁU ========== */
-.breadcrumbs {
-    margin: 10px 0 20px;
-    color: #b3b3b3;
-    font-size: 0.95rem;
+.lector-tile:hover {
+    background: #2d337a;
 }
 
-.breadcrumbs a {
-    color: #9ad9ff;
-    text-decoration: none;
+.lector-tile.playing {
+    background: #2f7a5f;
 }
 
-.breadcrumbs a:hover {
-    text-decoration: underline;
-}
-
-.post {
-    background: #141833;
-    border: 1px solid #242a4f;
-    border-radius: 14px;
-    padding: 22px;
-}
-
-.post__header h2 {
-    margin-bottom: 10px;
-    color: #6cf;
-}
-
-.post__meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    color: #b3b3b3;
-    font-size: 0.95rem;
-    margin-bottom: 14px;
-}
-
-.post__lead {
-    color: #d7d7d7;
-    font-size: 1.05rem;
-}
-
-.post__section {
-    margin-top: 26px;
-}
-
-.post__section h3 {
-    margin-bottom: 10px;
-    color: #6cf;
-}
-
-.post__list {
-    margin-top: 10px;
-    padding-left: 18px;
-    color: #d0d0d0;
-}
-
-.post__list li {
-    margin: 8px 0;
-}
-
-.post__grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-    margin-top: 12px;
-}
-
-.post__card {
+/* Stopka */
+footer {
+    text-align: center;
+    padding: 20px;
     background: #1b1f3a;
-    border: 1px solid #242a4f;
-    border-radius: 12px;
-    padding: 14px;
+    color: #888;
+    font-size: 0.9rem;
 }
 
-.post__card h4 {
-    margin-bottom: 8px;
-    color: #9ad9ff;
-}
-
-.post__card p {
-    color: #cfcfcf;
-    font-size: 0.95rem;
-}
-
-.post__cta {
-    margin-top: 14px;
-    background: #1b1f3a;
-    border: 1px solid #2c3370;
-    border-radius: 12px;
-    padding: 14px;
-    color: #d7d7d7;
-}
-
-.post__footer {
-    margin-top: 26px;
-}
-
-.back-link {
-    color: #9ad9ff;
-    text-decoration: none;
-    font-weight: 700;
-}
-
-.back-link:hover {
-    text-decoration: underline;
-}
-
-/* Responsywność artykułu */
-@media (min-width: 700px) {
-    .post {
-        padding: 26px;
-    }
-
-    .post__grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-/* Układ kafli – lista artykułów */
-.tiles {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-}
-
-@media (min-width: 700px) {
-    .tiles {
-        grid-template-columns: repeat(2, 1fr);
+/* Responsywność */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 1.5rem;
     }
 }
 
