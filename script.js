@@ -1,37 +1,20 @@
 console.log("Pomocnik Gracza uruchomiony");
 
+// === LEKTOR ARTYKUŁÓW I PORAD ===
 document.addEventListener("DOMContentLoaded", () => {
     const lectorTile = document.getElementById("lectorToggle");
     if (!lectorTile) return;
 
     if (!("speechSynthesis" in window)) {
-        lectorTile.querySelector("p").innerText =
-            "Twoja przeglądarka nie obsługuje lektora.";
+        console.warn("Brak wsparcia dla speechSynthesis");
         return;
     }
 
     let isPlaying = false;
     let utterance = null;
-    let voicesReady = false;
-
-    // 🔊 czekamy aż przeglądarka ZAŁADUJE głosy
-    function loadVoices() {
-        const voices = window.speechSynthesis.getVoices();
-        if (voices.length > 0) {
-            voicesReady = true;
-        }
-    }
-
-    loadVoices();
-    window.speechSynthesis.onvoiceschanged = loadVoices;
 
     lectorTile.addEventListener("click", () => {
-        if (!voicesReady) {
-            alert("Lektor jeszcze się ładuje. Spróbuj za sekundę.");
-            return;
-        }
-
-        // ⏹ STOP
+        // STOP
         if (isPlaying) {
             window.speechSynthesis.cancel();
             isPlaying = false;
@@ -41,24 +24,25 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const article = document.querySelector(".post");
-        if (!article) return;
+        // SZUKAMY CAŁEJ TREŚCI ARTYKUŁU
+        const article = document.querySelector("article.post");
+        if (!article) {
+            console.warn("Nie znaleziono article.post");
+            return;
+        }
 
-        // kopiujemy artykuł i usuwamy kafel lektora
+        // klonujemy, żeby usunąć kafel lektora z czytania
         const clone = article.cloneNode(true);
         const lectorClone = clone.querySelector("#lectorToggle");
         if (lectorClone) lectorClone.remove();
 
         const text = clone.innerText.trim();
-        if (!text) return;
+        if (!text) {
+            console.warn("Tekst artykułu jest pusty");
+            return;
+        }
 
         utterance = new SpeechSynthesisUtterance(text);
-
-        // 🎙 wybieramy POLSKI głos (jeśli jest)
-        const voices = window.speechSynthesis.getVoices();
-        const polishVoice = voices.find(v => v.lang === "pl-PL");
-        if (polishVoice) utterance.voice = polishVoice;
-
         utterance.lang = "pl-PL";
         utterance.rate = 1;
         utterance.pitch = 1;
@@ -70,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 "🎧 Posłuchaj zamiast czytać";
         };
 
-        window.speechSynthesis.cancel(); // reset
+        window.speechSynthesis.cancel();
         window.speechSynthesis.speak(utterance);
 
         isPlaying = true;
@@ -79,3 +63,5 @@ document.addEventListener("DOMContentLoaded", () => {
             "⏸️ Zatrzymaj lektora";
     });
 });
+
+
