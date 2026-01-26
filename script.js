@@ -2,7 +2,7 @@ console.log("Pomocnik Gracza uruchomiony");
 
 // === LEKTOR ARTYKUŁÓW I PORAD ===
 document.addEventListener("DOMContentLoaded", () => {
-    const lectorTile = document.getElementById("lectorToggle");
+    const lectorTile = document.getElementById("lectortoggle");
     if (!lectorTile) return;
 
     if (!("speechSynthesis" in window)) {
@@ -63,5 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
             "⏸️ Zatrzymaj lektora";
     });
 });
+
 
 
