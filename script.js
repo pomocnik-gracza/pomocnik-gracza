@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (h3) h3.innerText = "⏸️ Zatrzymaj lektora";
         });
     });
-});// ====== LEKTOR: klik w kafelek "Posłuchaj zamiast czytać" ======
+// ====== LEKTOR: klik w kafelek "Posłuchaj zamiast czytać" ======
 (() => {
   const tile = document.getElementById("lectorToggle"); // UWAGA: musi pasować do HTML
   const article = document.querySelector("article.post");
@@ -139,5 +139,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 })();
+
 
 
