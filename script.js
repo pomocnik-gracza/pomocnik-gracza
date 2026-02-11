@@ -77,4 +77,67 @@ document.addEventListener("DOMContentLoaded", () => {
             if (h3) h3.innerText = "⏸️ Zatrzymaj lektora";
         });
     });
-});
+});// ====== LEKTOR: klik w kafelek "Posłuchaj zamiast czytać" ======
+(() => {
+  const tile = document.getElementById("lectorToggle"); // UWAGA: musi pasować do HTML
+  const article = document.querySelector("article.post");
+
+  // jeśli nie ma kafelka albo nie ma artykułu – nic nie rób
+  if (!tile || !article) return;
+
+  // sprawdź wsparcie przeglądarki
+  const hasSpeech = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+  if (!hasSpeech) {
+    console.warn("Brak wsparcia TTS (speechSynthesis) w tej przeglądarce.");
+    return;
+  }
+
+  // funkcja: wyciąga tekst z artykułu (bez kafelka lektora)
+  const getArticleText = () => {
+    // bierzemy sensowną treść z nagłówków/akapitów/list
+    const nodes = article.querySelectorAll("h2, h3, h4, p, li");
+    const parts = [];
+
+    nodes.forEach((n) => {
+      // pomijamy tekst z kafelka
+      if (n.closest("#lectorToggle")) return;
+
+      const t = (n.textContent || "").replace(/\s+/g, " ").trim();
+      if (t.length > 0) parts.push(t);
+    });
+
+    return parts.join(". ");
+  };
+
+  const speakAll = () => {
+    const text = getArticleText();
+
+    if (!text) {
+      console.warn("Nie znaleziono tekstu do czytania w artykule.");
+      return;
+    }
+
+    // zatrzymaj poprzednie czytanie (jeśli było)
+    window.speechSynthesis.cancel();
+
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = "pl-PL"; // wymuszenie języka
+    utter.rate = 1.0;
+    utter.pitch = 1.0;
+
+    window.speechSynthesis.speak(utter);
+  };
+
+  // klik myszą
+  tile.addEventListener("click", speakAll);
+
+  // enter/space z klawiatury (bo role="button" i tabindex)
+  tile.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      speakAll();
+    }
+  });
+})();
+
+
